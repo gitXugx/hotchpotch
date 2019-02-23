@@ -16,7 +16,7 @@
 
 **方法区中主要是什么:**
 
-<div align="center"> <img src="../images/jvm方法区.jpg" /> </div><br>
+<div align="center"> <img src="https://github.com/gitXugx/hotchpotch/blob/master/doc/images/jvm/jvm%E6%96%B9%E6%B3%95%E5%8C%BA.jpg" /> </div><br>
 
 1. 常量池
     - 所有字符串(方法描述, 类描述, 字段名等等)
@@ -79,11 +79,11 @@
 **句柄访问**
 因为对象实例和类型数据放在不同的地方, 当你获取对象时是通过对象实例拿到数据, 调用方法是通过类型的方法表来确定执行的方法, 在GC回收时, 整理内存空间时, 会涉及到对象实例地址变化或类型地址变化, 如果有个对象句柄, 只需要改变对象句柄里对象的地址即可, 不用去到每个栈空间的局部变量表中改变refrece的地址, 但是对象就需要两次定位了、
 
-<div align="center"> <img src="../images/对象访问句柄池.jpg" /> </div><br>
+<div align="center"> <img src="https://github.com/gitXugx/hotchpotch/blob/master/doc/images/jvm/%E5%AF%B9%E8%B1%A1%E8%AE%BF%E9%97%AE%E5%8F%A5%E6%9F%84%E6%B1%A0.jpg" /> </div><br>
 
 **直接访问**
 不需要句柄, 对象的访问速度比较快。
-<div align="center"> <img src="../images/对象访问直接访问.jpg" /> </div><br>
+<div align="center"> <img src="https://github.com/gitXugx/hotchpotch/blob/master/doc/images/jvm/%E5%AF%B9%E8%B1%A1%E8%AE%BF%E9%97%AE%E7%9B%B4%E6%8E%A5%E8%AE%BF%E9%97%AE.jpgjpg" /> </div><br>
 
 ## 简单的程序
 
