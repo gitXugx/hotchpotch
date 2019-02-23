@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>design.mode.dm.bp.v2</OriginalElement>
+  <nodes>
+    <node x="458.0" y="95.0">design.mode.dm.bp.v2.OrangeJuice</node>
+    <node x="614.0" y="95.0">design.mode.dm.bp.v2.Product</node>
+    <node x="550.5" y="190.0">design.mode.dm.bp.v2.Client</node>
+    <node x="150.56060606060612" y="0.0">design.mode.dm.bp.v2.Dishes</node>
+    <node x="779.7878787878788" y="0.0">design.mode.dm.bp.v2.Food</node>
+    <node x="0.0" y="95.0">design.mode.dm.bp.v2.FriedChicken</node>
+    <node x="744.0" y="95.0">design.mode.dm.bp.v2.Bread</node>
+    <node x="158.00000000000006" y="95.0">design.mode.dm.bp.v2.RoastedBeef</node>
+    <node x="484.3484848484849" y="0.0">design.mode.dm.bp.v2.Drinks</node>
+    <node x="860.0" y="95.0">design.mode.dm.bp.v2.Rice</node>
+    <node x="315.0" y="95.0">design.mode.dm.bp.v2.appleJuice</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="design.mode.dm.bp.v2.Client" target="design.mode.dm.bp.v2.Product">
+      <point x="7.833333333333314" y="-17.5" />
+      <point x="605.3333333333334" y="150.0" />
+      <point x="669.0" y="150.0" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.bp.v2.Client" target="design.mode.dm.bp.v2.Rice">
+      <point x="39.166666666666686" y="-17.5" />
+      <point x="636.6666666666667" y="170.0" />
+      <point x="903.0" y="170.0" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.bp.v2.Rice" target="design.mode.dm.bp.v2.Food">
+      <point x="0.0" y="-17.5" />
+      <point x="903.0" y="75.0" />
+      <point x="856.4545454545454" y="75.0" />
+      <point x="30.66666666666663" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.bp.v2.OrangeJuice" target="design.mode.dm.bp.v2.Drinks">
+      <point x="0.0" y="-17.5" />
+      <point x="526.0" y="75.0" />
+      <point x="533.8484848484849" y="75.0" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.bp.v2.Product" target="design.mode.dm.bp.v2.Drinks">
+      <point x="0.0" y="-17.5" />
+      <point x="669.0" y="55.0" />
+      <point x="566.8484848484849" y="55.0" />
+      <point x="33.0" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.bp.v2.Bread" target="design.mode.dm.bp.v2.Food">
+      <point x="0.0" y="-17.5" />
+      <point x="792.0" y="75.0" />
+      <point x="825.7878787878788" y="75.0" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.bp.v2.Product" target="design.mode.dm.bp.v2.Food">
+      <point x="36.666666666666686" y="-17.5" />
+      <point x="705.6666666666667" y="65.0" />
+      <point x="795.121212121212" y="65.0" />
+      <point x="-30.666666666666686" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.bp.v2.Client" target="design.mode.dm.bp.v2.FriedChicken">
+      <point x="-39.16666666666663" y="-17.5" />
+      <point x="558.3333333333334" y="170.0" />
+      <point x="69.0" y="170.0" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.bp.v2.FriedChicken" target="design.mode.dm.bp.v2.Dishes">
+      <point x="0.0" y="-17.5" />
+      <point x="69.0" y="75.0" />
+      <point x="167.22727272727275" y="75.0" />
+      <point x="-33.33333333333334" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.bp.v2.Client" target="design.mode.dm.bp.v2.OrangeJuice">
+      <point x="-7.833333333333314" y="-17.5" />
+      <point x="589.6666666666667" y="150.0" />
+      <point x="526.0" y="150.0" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.bp.v2.Product" target="design.mode.dm.bp.v2.Dishes">
+      <point x="-36.66666666666663" y="-17.5" />
+      <point x="632.3333333333334" y="65.0" />
+      <point x="233.8939393939395" y="65.0" />
+      <point x="33.33333333333334" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.bp.v2.appleJuice" target="design.mode.dm.bp.v2.Drinks">
+      <point x="0.0" y="-17.5" />
+      <point x="376.5" y="75.0" />
+      <point x="500.8484848484849" y="75.0" />
+      <point x="-33.0" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.bp.v2.RoastedBeef" target="design.mode.dm.bp.v2.Dishes">
+      <point x="0.0" y="-17.5" />
+      <point x="226.50000000000006" y="75.0" />
+      <point x="200.56060606060612" y="75.0" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.bp.v2.Client" target="design.mode.dm.bp.v2.RoastedBeef">
+      <point x="-23.5" y="-17.5" />
+      <point x="574.0" y="160.0" />
+      <point x="226.50000000000006" y="160.0" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.bp.v2.Client" target="design.mode.dm.bp.v2.Bread">
+      <point x="23.5" y="-17.5" />
+      <point x="621.0" y="160.0" />
+      <point x="792.0" y="160.0" />
+      <point x="0.0" y="17.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.9575569358178052" x="473.0000000000001" y="112.5" />
+  <SelectedNodes>
+    <node>design.mode.dm.bp.v2.appleJuice</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

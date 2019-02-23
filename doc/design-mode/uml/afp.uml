@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>design.mode.dm.fp.afp</OriginalElement>
+  <nodes>
+    <node x="191.50000000000003" y="155.0">design.mode.dm.fp.afp.JordonShoe</node>
+    <node x="10.5" y="155.0">design.mode.dm.fp.afp.JordonClothes</node>
+    <node x="346.5" y="155.0">design.mode.dm.fp.afp.Factory</node>
+    <node x="486.59736842105275" y="0.0">design.mode.dm.fp.afp.IShoe</node>
+    <node x="217.09736842105275" y="0.0">design.mode.dm.fp.afp.IClothes</node>
+    <node x="544.1473684210528" y="240.0">design.mode.dm.fp.afp.AdidasFactory</node>
+    <node x="651.5" y="155.0">design.mode.dm.fp.afp.AdidasShoe</node>
+    <node x="353.5" y="325.0">design.mode.dm.fp.afp.Client</node>
+    <node x="474.5" y="155.0">design.mode.dm.fp.afp.AdidasClothes</node>
+    <node x="111.94736842105272" y="240.0">design.mode.dm.fp.afp.JordonFactory</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="design.mode.dm.fp.afp.JordonClothes" target="design.mode.dm.fp.afp.IClothes">
+      <point x="0.0" y="-17.5" />
+      <point x="85.0" y="95.0" />
+      <point x="244.59736842105275" y="95.0" />
+      <point x="-27.5" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.fp.afp.AdidasFactory" target="design.mode.dm.fp.afp.Factory">
+      <point x="-58.80000000000001" y="-17.5" />
+      <point x="558.8473684210528" y="220.0" />
+      <point x="436.5" y="220.0" />
+      <point x="36.0" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.fp.afp.AdidasFactory" target="design.mode.dm.fp.afp.IShoe">
+      <point x="29.399999999999977" y="-17.5" />
+      <point x="647.0473684210527" y="220.0" />
+      <point x="641.0" y="220.0" />
+      <point x="641.0" y="75.0" />
+      <point x="542.5973684210528" y="75.0" />
+      <point x="8.0" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.fp.afp.Client" target="design.mode.dm.fp.afp.IClothes">
+      <point x="-37.599999999999966" y="-17.5" />
+      <point x="362.9000000000001" y="305.0" />
+      <point x="0.0" y="305.0" />
+      <point x="0.0" y="85.0" />
+      <point x="226.26403508771944" y="85.0" />
+      <point x="-45.833333333333314" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.fp.afp.Client" target="design.mode.dm.fp.afp.IShoe">
+      <point x="37.60000000000002" y="-17.5" />
+      <point x="438.1" y="305.0" />
+      <point x="793.0" y="305.0" />
+      <point x="793.0" y="55.0" />
+      <point x="574.5973684210528" y="55.0" />
+      <point x="40.0" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.fp.afp.JordonFactory" target="design.mode.dm.fp.afp.IClothes">
+      <point x="-30.200000000000045" y="-17.5" />
+      <point x="157.24736842105267" y="220.0" />
+      <point x="170.00000000000003" y="220.0" />
+      <point x="170.00000000000003" y="105.0" />
+      <point x="262.9307017543861" y="105.0" />
+      <point x="-9.166666666666629" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.fp.afp.AdidasFactory" target="design.mode.dm.fp.afp.IClothes">
+      <point x="0.0" y="-17.5" />
+      <point x="617.6473684210528" y="220.0" />
+      <point x="630.0" y="220.0" />
+      <point x="630.0" y="85.0" />
+      <point x="317.9307017543861" y="85.0" />
+      <point x="45.83333333333337" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.fp.afp.AdidasClothes" target="design.mode.dm.fp.afp.IClothes">
+      <point x="0.0" y="-17.5" />
+      <point x="547.0" y="95.0" />
+      <point x="299.59736842105275" y="95.0" />
+      <point x="27.5" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.fp.afp.Client" target="design.mode.dm.fp.afp.AdidasFactory">
+      <point x="18.80000000000001" y="-17.5" />
+      <point x="419.30000000000007" y="295.0" />
+      <point x="617.6473684210528" y="295.0" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.fp.afp.Factory" target="design.mode.dm.fp.afp.IShoe">
+      <point x="27.0" y="-17.5" />
+      <point x="427.5" y="135.0" />
+      <point x="526.5973684210528" y="135.0" />
+      <point x="-8.0" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.fp.afp.AdidasFactory" target="design.mode.dm.fp.afp.AdidasShoe">
+      <point x="58.80000000000001" y="-17.5" />
+      <point x="676.4473684210527" y="220.0" />
+      <point x="717.0" y="220.0" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.fp.afp.Factory" target="design.mode.dm.fp.afp.IClothes">
+      <point x="-27.0" y="-17.5" />
+      <point x="373.5" y="105.0" />
+      <point x="281.2640350877194" y="105.0" />
+      <point x="9.166666666666629" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.fp.afp.JordonShoe" target="design.mode.dm.fp.afp.IShoe">
+      <point x="0.0" y="-17.5" />
+      <point x="259.0" y="125.0" />
+      <point x="510.59736842105275" y="125.0" />
+      <point x="-24.0" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.fp.afp.AdidasFactory" target="design.mode.dm.fp.afp.AdidasClothes">
+      <point x="-29.400000000000034" y="-17.5" />
+      <point x="588.2473684210527" y="210.0" />
+      <point x="547.0" y="210.0" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.fp.afp.JordonFactory" target="design.mode.dm.fp.afp.IShoe">
+      <point x="0.0" y="-17.5" />
+      <point x="187.44736842105272" y="220.0" />
+      <point x="181.00000000000003" y="220.0" />
+      <point x="181.00000000000003" y="115.0" />
+      <point x="494.59736842105275" y="115.0" />
+      <point x="-40.0" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.fp.afp.Client" target="design.mode.dm.fp.afp.JordonFactory">
+      <point x="-18.799999999999955" y="-17.5" />
+      <point x="381.70000000000005" y="295.0" />
+      <point x="187.44736842105272" y="295.0" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.fp.afp.Client" target="design.mode.dm.fp.afp.Factory">
+      <point x="0.0" y="-17.5" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.fp.afp.JordonFactory" target="design.mode.dm.fp.afp.Factory">
+      <point x="60.39999999999998" y="-17.5" />
+      <point x="247.8473684210527" y="220.0" />
+      <point x="364.5" y="220.0" />
+      <point x="-36.0" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.fp.afp.JordonFactory" target="design.mode.dm.fp.afp.JordonShoe">
+      <point x="30.200000000000045" y="-17.5" />
+      <point x="217.64736842105276" y="210.0" />
+      <point x="259.0" y="210.0" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.fp.afp.JordonFactory" target="design.mode.dm.fp.afp.JordonClothes">
+      <point x="-60.39999999999998" y="-17.5" />
+      <point x="127.04736842105274" y="220.0" />
+      <point x="85.0" y="220.0" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="design.mode.dm.fp.afp.AdidasShoe" target="design.mode.dm.fp.afp.IShoe">
+      <point x="0.0" y="-17.5" />
+      <point x="717.0" y="65.0" />
+      <point x="558.5973684210528" y="65.0" />
+      <point x="24.0" y="17.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.1" x="396.5" y="180.0" />
+  <SelectedNodes>
+    <node>design.mode.dm.fp.afp.AdidasShoe</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
