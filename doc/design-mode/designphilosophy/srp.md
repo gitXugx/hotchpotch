@@ -49,11 +49,10 @@ public class User {
 修改名字这个方法我们应该是放在我们UserService.java中，他属于业务代码，我们不知不觉中就在遵守着这个原则
 
 下面看下修改后的UML图
-<div align=center>
 
-![](https://github.com/gitXugx/design-mode/blob/master/doc/img/Package%20singleresponsibility.png)
+<div align="center"> <img src="https://github.com/gitXugx/hotchpotch/blob/master/doc/design-mode/img/Package%20singleresponsibility.png
+"  /> </div><br>
 
-</div>
 
 
 
