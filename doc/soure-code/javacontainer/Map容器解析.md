@@ -1,13 +1,16 @@
 # Map容器解析
 > 以 `key-value` 的形式存储数据的容器
 
-- [ ] TreeMap
 
-[toc]
+ - [HashMap](#hashmap)
+ - [Hashtable](#hashtable)
+ - [LinkedHashMap](#linkedhashmap)
+ - [TreeMap](#treemap)
+
 
 ## HashMap 
 > HashMap是容器的一种, 其中数据主要以 `key-value` 键值对的形式进行存储， 底层实现是哈希表。
-### 字段以及声明
+**字段以及声明**
 
 ```java
 public class HashMap<K,V> extends AbstractMap<K,V> implements Map<K,V>, Cloneable, Serializable {
@@ -41,7 +44,7 @@ public class HashMap<K,V> extends AbstractMap<K,V> implements Map<K,V>, Cloneabl
 `AbstractMap` 是Map接口的实现。
 
 
-### 方法
+**方法**
 
 **构造函数**
 ```java
@@ -333,7 +336,7 @@ public class HashMap<K,V> extends AbstractMap<K,V> implements Map<K,V>, Cloneabl
 它的功能和 `HashMap` 基本一致也是 `key-value` 键值对，但是 `HashMap` 是线程不安全的，在多线程环境下会出现数据不一致的情况(JDK 8 以修复扩容死循环问题)，`Hashtable`  基本上每个方法都加了 `synchronized` 来保证多线程情况下的安全，`Hashtable` 的 `value` 是不能存在 `null` 同时也不支持 `null` 键，很多实现也是比较原始的，像hash槽的定位是直接使用 `e.hash & tab.length` 来确定位置，也没有使用树化来解决拉链法的缺点。
 
 
-### 字段以及声明
+**字段以及声明**
 
 ```java
 
@@ -351,7 +354,7 @@ public class Hashtable<K,V> extends Dictionary<K,V> implements Map<K,V>, Cloneab
 ```
 可以从字段中看出 `Hashtable` 没有树化的设计，比HashMap的设计简单很多
 
-### 方法
+**方法**
 
 **添加 put 方法**
 
@@ -448,7 +451,7 @@ public class Hashtable<K,V> extends Dictionary<K,V> implements Map<K,V>, Cloneab
 ## LinkedHashMap
 上面的 `HashMap` 和 `Hashtable` 他们都是无序的，存储的时候是通过hash来进行确定数组中槽的位置，而 `LinkedHashMap` 可以是说是空间换需求的方式，来通过链表和hash表的结合来达到有序的存储和遍历。其底层实现是hash表和双向链表，使用模板方法设计模式。
 
-### 字段以及声明
+**字段以及声明**
 ```java
 public class LinkedHashMap<K,V> extends HashMap<K,V> implements Map<K,V> {
 
@@ -462,7 +465,7 @@ public class LinkedHashMap<K,V> extends HashMap<K,V> implements Map<K,V> {
 }
 ```
 
-### 方法
+**方法**
 
 **构造方法**
 
@@ -619,9 +622,9 @@ public class LinkedHashMap<K,V> extends HashMap<K,V> implements Map<K,V> {
 ## TreeMap 
 > TreeMap是容器的一种, 其中数据主要以 `key-value` 键值对的形式进行存储， 底层实现是红黑树。
 
-### 字段以及声明
+**字段以及声明**
 
-### 方法
+**方法**
 
 ```java
 public class TreeMap<K,V> extends AbstractMap<K,V>  implements NavigableMap<K,V>, Cloneable, java.io.Serializable {

@@ -1,12 +1,15 @@
 # Set容器解析
 > 存储不重复数据的容器，实现有 `HashSet` 、`LinkedHashSet` 、`TreeSet`等。
 
-[toc]
+- [HashSet](#hashset)
+- [LinkedHashSet](#linkedhashset)
+- [TreeSet](#treeset)
+- [总结](#%E6%80%BB%E7%BB%93)
 
 ## HashSet
 > 底层实现是 Hash表，使用的都是 `HashMap` 的实现，使用其 `key` 来当存储的元素
 
-### 字段以及声明
+**字段以及声明**
 
 ```java
 public class HashSet<E> extends AbstractSet<E> implements Set<E>, Cloneable, java.io.Serializable {
@@ -29,7 +32,7 @@ public class HashSet<E> extends AbstractSet<E> implements Set<E>, Cloneable, jav
 1. `HashSet(int initialCapacity, float loadFactor, boolean dummy)` 该构造方法是给 `LinkedHashSet` 使用，实现插入和访问有序的Set集合
 2. 其他构造方法都是给用户使用的，创建插入和访问无序的Set集合
 
-### 方法
+**方法**
 
 其他方法基本上都是调用 `HashMap` 的实现
 

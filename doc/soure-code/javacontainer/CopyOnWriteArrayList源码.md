@@ -1,20 +1,10 @@
 # CopyOnWriteArrayList源码
 > `ArrayList` 、`LinkedArrayList` 在多线程下会出现数据问题，`CopyOnWriteArrayList` 通过重入锁和快照的方式来实现线程安全。
 
-<!-- TOC -->
-
-- [CopyOnWriteArrayList源码](#copyonwritearraylist%E6%BA%90%E7%A0%81)
-  - [CopyOnWriteArrayList](#copyonwritearraylist)
-    - [字段以及声明](#%E5%AD%97%E6%AE%B5%E4%BB%A5%E5%8F%8A%E5%A3%B0%E6%98%8E)
-  - [方法](#%E6%96%B9%E6%B3%95)
-
-<!-- /TOC -->
-
-
 ## CopyOnWriteArrayList
 
 
-### 字段以及声明
+**字段以及声明**
 
 ```java
 
@@ -33,7 +23,7 @@ public class CopyOnWriteArrayList<E> implements List<E>, RandomAccess, Cloneable
 
 上面可以看出 `CopyOnWriteArrayList` 和 `ArrayList` 一样支持随机访问，实现List接口，字段中 `lock` 就是当对该数组进行写(插入，删除，更新)操作的时候进行加锁，更是比 `ArrayList` 字段少了很多
 
-## 方法
+**方法**
 
 **add**
 

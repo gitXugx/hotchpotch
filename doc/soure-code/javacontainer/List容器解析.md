@@ -1,11 +1,17 @@
 # List容器解析
 > 线性表结构，可以添加重复元素有多种实现方式 `ArrayList` 、`LinkedList` 、`Vector` 等。
 
-[toc]
+
+- [ArrayList](#arraylist)
+- [Vector](#vector)
+        - [总结](#总结)
+- [LinkedList](#linkedlist)
+        - [总结](#总结-1)
+
 
 ## ArrayList 
 > 像他的名字一样是一个数组列表, 低层组要由数组实现, 但是提供的功能比数组更强大。
-### 字段以及声明
+**字段以及声明**
 
 ```java
 public class ArrayList<E> extends AbstractList<E>
@@ -41,7 +47,7 @@ public class ArrayList<E> extends AbstractList<E>
 - `Cloneable` 使 `List` 支持浅克隆
 - `Serializable` 支持序列化, `serialVersionUID` 序列化的唯一编号
 
-### 方法
+**方法**
 
 先构造方法:
 
@@ -240,7 +246,7 @@ public class ArrayList<E> extends AbstractList<E> implements List<E>, RandomAcce
 
 ## Vector
 
-### 方法
+**方法**
 它的实现和 `ArrayList` 基本一致, 但是 `Vector` 每个对外方法都加上了 `synchronized` 关键字来是实现线程安全。
 还有就是扩容方法有点不同: 
 ```java
@@ -299,7 +305,7 @@ public class Collections {
 > 内部实现是链表和数组有很多不同的地方, 但是他们也有互补的地方。
 
 
-### 字段以及声明
+**字段以及声明**
 
 ```java
 public class LinkedList<E> extends AbstractSequentialList<E> implements List<E>, Deque<E>, Cloneable, java.io.Serializable {
@@ -340,7 +346,7 @@ public class LinkedList<E> extends AbstractSequentialList<E> implements List<E>,
 - `Serializable` 支持序列化, `serialVersionUID` 序列化的唯一编号
 - `Deque` 双端队列的实现。
 
-### 方法
+**方法**
 
 链表不像数组创建需要连续的内存空间, 所以链表构造方法无需去指定链表的大小:
 
