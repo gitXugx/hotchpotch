@@ -9,7 +9,7 @@
    - [单分派和多分派](#单分派和多分派)
 - [自动拆箱, 装箱的问题](#自动拆箱-装箱的问题)
 - [(从字节码看)可变参数](#从字节码看可变参数)
-
+- [(for和foreach的效率问题)](#for和foreach的效率问题)
 
 ## this的实现
 > this代表实例对象。只有实例方法才有
@@ -39,25 +39,65 @@ java编译器会在编译实例方法的时候会把this作为第一个参数传
 - 静态重载实现
 在编译期间, 根据静态类型来决定而不是实际类型来确定调用的方法, 重载的静态方法也能在编译时就确定调用的方法(或者选择最佳的)。这个其实叫 `静态分派`   
 
+```java
+public class OverLoadTest {
+    static  class Person{
+    }
+    static class Man extends Person{
+    }
+
+    static class Woman extends Person{
+    }
+
+
+    private static void print(Person person){
+        System.out.println("print person ");
+    }
+
+    private static void print(Man man){
+        System.out.println("print Man ");
+    }
+    private static void print(Woman woman){
+        System.out.println("print woman ");
+    }
+
+    public  static void main(String[] args){
+        Person person = new Person();
+        Woman woman = new Woman();
+        Man man = new Man();
+
+        Person personWoamn = new Woman();
+        Person personMan = new Man();
+
+        print(person);
+        print(woman);
+        print(man);
+        print(personWoamn);
+        print(personMan);
+    }
+
+}
+```
+
 ```text
-public class basic.jvm.basicimp.example2.OverLoadTest {
+public class basic.learning.jvm.basicimp.example2.OverLoadTest {
   public static void main(java.lang.String[]);
     Code:
       .....
-      33: new           #11                 // class basic/jvm/jvm/basicimp/example2/OverLoadTest$Man
+      33: new           #11                 // class basic/learning/jvm/basicimp/example2/OverLoadTest$Man
       36: dup
-      37: invokespecial #12                 // Method basic/jvm/jvm/basicimp/example2/OverLoadTest$Man."<init>":()V
+      37: invokespecial #12                 // Method basic/learning/jvm/basicimp/example2/OverLoadTest$Man."<init>":()V
       40: astore        5
       42: aload_1
-      43: invokestatic  #13                 // Method print:(Lbasic/jvm/jvm/basicimp/example2/OverLoadTest$Person;)V
+      43: invokestatic  #13                 // Method print:(Lbasic/learning/jvm/basicimp/example2/OverLoadTest$Person;)V
       46: aload_2
-      47: invokestatic  #14                 // Method print:(Lbasic/jvm/jvm/basicimp/example2/OverLoadTest$Woman;)V
+      47: invokestatic  #14                 // Method print:(Lbasic/learning/jvm/basicimp/example2/OverLoadTest$Woman;)V
       50: aload_3
-      51: invokestatic  #15                 // Method print:(Lbasic/jvm/jvm/basicimp/example2/OverLoadTest$Man;)V
+      51: invokestatic  #15                 // Method print:(Lbasic/learning/jvm/basicimp/example2/OverLoadTest$Man;)V
       54: aload         4
-      56: invokestatic  #13                 // Method print:(Lbasic/jvm/jvm/basicimp/example2/OverLoadTest$Person;)V
+      56: invokestatic  #13                 // Method print:(Lbasic/learning/jvm/basicimp/example2/OverLoadTest$Person;)V
       59: aload         5
-      61: invokestatic  #13                 // Method print:(Lbasic/jvm/jvm/basicimp/example2/OverLoadTest$Person;)V
+      61: invokestatic  #13                 // Method print:(Lbasic/learning/jvm/basicimp/example2/OverLoadTest$Person;)V
       64: return
 }
 
@@ -67,9 +107,9 @@ public class basic.jvm.basicimp.example2.OverLoadTest {
 3. 从下面编译的字节码我们就可以看出 `#13 #14 #15` 已经确定了方法是调用哪个了
 ```text
 Constant pool:
-  #13 = Methodref          #16.#58        // basic/jvm/jvm/basicimp/example2/OverLoadTest.print:(Lbasic/jvm/jvm/basicimp/example2/OverLoadTest$Person;)V
-  #14 = Methodref          #16.#59        // basic/jvm/jvm/basicimp/example2/OverLoadTest.print:(Lbasic/jvm/jvm/basicimp/example2/OverLoadTest$Woman;)V
-  #15 = Methodref          #16.#60        // basic/jvm/jvm/basicimp/example2/OverLoadTest.print:(Lbasic/jvm/jvm/basicimp/example2/OverLoadTest$Man;)V
+  #13 = Methodref          #16.#58        // basic/learning/jvm/basicimp/example2/OverLoadTest.print:(Lbasic/learning/jvm/basicimp/example2/OverLoadTest$Person;)V
+  #14 = Methodref          #16.#59        // basic/learning/jvm/basicimp/example2/OverLoadTest.print:(Lbasic/learning/jvm/basicimp/example2/OverLoadTest$Woman;)V
+  #15 = Methodref          #16.#60        // basic/learning/jvm/basicimp/example2/OverLoadTest.print:(Lbasic/learning/jvm/basicimp/example2/OverLoadTest$Man;)V
 ```
 我们最后的执行结果, 与我们字节码编译的预期一致
 ```text
@@ -117,21 +157,21 @@ say Man
 ``` 
 下面是上面代码编译的字节码:
 ```text
-public class basic.jvm.basicimp.example1.OverRewriteTest {
+public class basic.learning.jvm.basicimp.example1.OverRewriteTest {
   public static void main(java.lang.String[]);
     Code:
-       0: new           #2                  // class basic/jvm/jvm/basicimp/example1/OverRewriteTest$Woman
+       0: new           #2                  // class basic/learning/jvm/basicimp/example1/OverRewriteTest$Woman
        3: dup
-       4: invokespecial #3                  // Method basic/jvm/jvm/basicimp/example1/OverRewriteTest$Woman."<init>":()V
+       4: invokespecial #3                  // Method basic/learning/jvm/basicimp/example1/OverRewriteTest$Woman."<init>":()V
        7: astore_1
-       8: new           #4                  // class basic/jvm/jvm/basicimp/example1/OverRewriteTest$Man
+       8: new           #4                  // class basic/learning/jvm/basicimp/example1/OverRewriteTest$Man
       11: dup
-      12: invokespecial #5                  // Method basic/jvm/jvm/basicimp/example1/OverRewriteTest$Man."<init>":()V
+      12: invokespecial #5                  // Method basic/learning/jvm/basicimp/example1/OverRewriteTest$Man."<init>":()V
       15: astore_2
       16: aload_1
-      17: invokevirtual #6                  // Method basic/jvm/jvm/basicimp/example1/OverRewriteTest$Person.say:()V
+      17: invokevirtual #6                  // Method basic/learning/jvm/basicimp/example1/OverRewriteTest$Person.say:()V
       20: aload_2
-      21: invokevirtual #6                  // Method basic/jvm/jvm/basicimp/example1/OverRewriteTest$Person.say:()V
+      21: invokevirtual #6                  // Method basic/learning/jvm/basicimp/example1/OverRewriteTest$Person.say:()V
       24: return
 }
 ```
@@ -141,7 +181,7 @@ public class basic.jvm.basicimp.example1.OverRewriteTest {
 
 ```text
 Constant pool:
-   #6 = Methodref          #12.#33        // basic/jvm/jvm/basicimp/example1/OverRewriteTest$Person.say:()V
+   #6 = Methodref          #12.#33        // basic/learning/jvm/basicimp/example1/OverRewriteTest$Person.say:()V
 ```
 
 现在看来最主要的就是 `invokevirtual` 命令了, 它主要做了什么:
@@ -230,6 +270,137 @@ public static void ChangeableParameter(int...);
 ```
 
 可以看出可变参数其实就是一个数组类型的参数。
+
+
+## for和foreach的效率问题
+
+```java
+public class ForTest {
+    public  static void main(String[] args){
+        Integer[] ints = new Integer[]{1 ,1 ,3,4 ,5};
+
+        for(int i = 0 ; i < ints.length ;i ++ ){
+            Integer anInt = ints[i];
+        }
+        for(Integer  s: ints){
+
+        }
+    }
+}
+```
+
+我们查看他们编译的字节码来看看到底执行了什么命令:
+
+1. 上面的for 循环的循环体是 `42 - 55` 
+```text
+        42: iload_2             //把局部变量表中的第2个变量加载到操作数栈
+        43: aload_1             //把局部变量表中的第1个变量数组加载到操作数栈
+        44: arraylength         //获取数组长度
+        45: if_icmpge     58    //比较 0 调到58
+        48: aload_1             //把数组加载到操作数栈
+        49: iload_2             //局部变量表中的第2个变量加载到操作数栈
+        50: aaload              //把数组对应索引的值加载到操作数栈
+        51: astore_3            //把操作数栈中的值放到局部变量的第3个变量
+        52: iinc          2, 1  //把局部变量的第2个变量 自增
+        55: goto          42
+```
+
+2.  foreach是 `66 - 81`
+```text
+        58: aload_1             //把局部变量表中的第1个变量,数组加载到操作数栈
+        59: astore_2            //把操作数栈的结果保存到局部变量表的第2个位置
+        60: aload_2             //把局部变量表中的第2个变量,数组加载到操作数栈
+        61: arraylength         //得到数组长度
+        62: istore_3            //放到局部变量表3
+        63: iconst_0            //把int 0 推送至栈顶
+        64: istore        4     //把0 存放到局部变量表的第4个sot
+        66: iload         4     //把局部变量表的第4个变量推送至栈顶 0 
+        68: iload_3             //把局部变量表的第3个变量推送至栈顶  数组长度
+        69: if_icmpge     84    //比较 如果为 0 则 跳转到84
+        72: aload_2             //把局部变量表中的第2个参数,数组加载到操作数栈
+        73: iload         4     //把局部变量表的第4个变量推送至栈顶 
+        75: aaload              //把数组对应索引的值加载到操作数栈
+        76: astore        5     //把操作数栈中的值保存到局部变量表5
+        78: iinc          4, 1  //把局部变量表的第4个+1
+        81: goto          66    //返回到66
+```
+3. 可以看到其实 for里多个个 `arraylength` 指令在循环体中, 只要把 `ints.length` 作为一个变量就可以达到字节码一致, 所以基本上以上代码 `for` 和 `foreach` 提出 `int length = ints.length` 的情况下, 效率一样。 **当你为包装类型时还需要拆箱, 那样可能就多了很多操作**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
