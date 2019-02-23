@@ -328,7 +328,7 @@ public class LinkedList<E> extends AbstractSequentialList<E> implements List<E>,
 ```
 `AbstractList`  继承 `AbstractCollection` 实现 `List` 他们俩又继承和实现 `Collection` 和 `Iterable` 接口
 
-<div align="center"> <img src="../images/LinkedList.jpg"  /> </div><br>
+<div align="center"> <img src="https://github.com/gitXugx/hotchpotch/blob/master/doc/images/soure-code/LinkedList.jpg"  /> </div><br>
 
 - `Iterable` 是迭代器, 实现它可以使用 `for-each` 循环, 它其中的方法定义了获取迭代器的抽象工厂方法和java8的新方法。
 - `Collection` 是集合类共有的抽象, 其中也有一些默认方法, 是通用实现。
