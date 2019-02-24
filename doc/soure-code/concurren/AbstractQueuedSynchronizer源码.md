@@ -13,7 +13,7 @@ public abstract class AbstractQueuedSynchronizer extends AbstractOwnableSynchron
     private transient volatile Node tail;
     //同步的状态
     private volatile int state;
-
+}
 ```
 
 
