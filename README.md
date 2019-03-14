@@ -25,10 +25,13 @@
 - [ReentrantReadWriteLock源码](https://github.com/gitXugx/hotchpotch/blob/master/doc/soure-code/concurren/ReentrantReadWriteLock%E6%BA%90%E7%A0%81.md)
 - [AbstractQueuedSynchronizer源码](https://github.com/gitXugx/hotchpotch/blob/master/doc/soure-code/concurren/AbstractQueuedSynchronizer%E6%BA%90%E7%A0%81.md)
 
+## mybatis源码解读
+- [mybatis是如何Mapper接口执行查询](https://github.com/gitXugx/source-debug/blob/master/doc/mybatis/mybatis%E6%BA%90%E7%A0%812.md)
+- [mybatisInsert做了哪些](https://github.com/gitXugx/source-debug/blob/master/doc/mybatis/mybatis%E6%BA%90%E7%A0%813.md)
+- [mybatis的核心源码有哪些](https://github.com/gitXugx/source-debug/blob/master/doc/mybatis/mybatis%E6%BA%90%E7%A0%814.md)
+
 ## 设计
 - [设计模式](https://github.com/gitXugx/design-mode/blob/master/README.md)
-
-
 
 ## 数据结构
 
