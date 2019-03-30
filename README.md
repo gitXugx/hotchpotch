@@ -38,6 +38,20 @@
 - [mybatisInsert做了哪些](https://github.com/gitXugx/source-debug/blob/master/doc/mybatis/mybatis%E6%BA%90%E7%A0%813.md)
 - [mybatis的核心源码有哪些](https://github.com/gitXugx/source-debug/blob/master/doc/mybatis/mybatis%E6%BA%90%E7%A0%814.md)
 
+
+## 微服务
+### springcloud
+- [Eureka注册中心](https://github.com/gitXugx/hotchpotch/blob/master/doc/microservices/springcloud/Eureka%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83.md)
+- [feign远程调用](https://github.com/gitXugx/hotchpotch/blob/master/doc/microservices/springcloud/feign%E8%BF%9C%E7%A8%8B%E8%B0%83%E7%94%A8.md)
+- [ribbon负载均衡](https://github.com/gitXugx/hotchpotch/blob/master/doc/microservices/springcloud/ribbon%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1.md)
+- [hystrix断路器](https://github.com/gitXugx/hotchpotch/blob/master/doc/microservices/springcloud/hystrix%E6%96%AD%E8%B7%AF%E5%99%A8.md)
+### dubbo
+
+## 中间件
+### redis
+### mq
+
+
 ## 设计
 - [设计模式](https://github.com/gitXugx/design-mode/blob/master/README.md)
 
