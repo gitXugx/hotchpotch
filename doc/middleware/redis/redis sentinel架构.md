@@ -18,7 +18,7 @@
 **从节点的启动**
 
 1. 主节点不需要知道从节点，在从节点中需要配置 `slaveof <masterip> <masterport> ` 来进行设置主节点。设置master节点有多种方式，也可以启动时指定 slaveof 或者 redis-cli slaveof 来设置
-2. 当从节点启动后，会创建socket，每秒定时尝试与主节点建立socket长连接，如果该连接可用，则进行复制操作
+2. 当从节点启动后，会创建socket，每秒定时尝试与主节点建立socket长连接，发送Ping命令如果该连接可用，有身份验证则进行身份验证。发送自己的节点信息。下面进行复制操作
 3. 复制分为两种全量复制、部分复制，如果从节点第一次连接主节点会发送 `psync ？ -1` psync 为同步命令 ? 是对应复制的redis runid -1 是从节点的偏移量。如果是网络波动或者网络断开时，当网络恢复的时候，从节点会向主节点发送 psync runid offset 来向主节点获取数据，如果主节点判断 `从节点offset+复制积压区大小 < 主节点offset`
 则会进行全量复制，否则进行部分复制即可
 4. 正常主节点发送给从节点写命令的时候还会给复制缓存区发送一份，以给offset请求的从节点进行部分同步
@@ -38,7 +38,88 @@
 
 ### 命令心跳机制
 
-min-slaves-to-write 3与min-slaves-max-lag 10：规定了主节点的最小从节点数目及对应的最大延迟，如果从节点小于3或者所有节点的同步延迟大于10，则不会对外提供写服务
+在`redis replication` 模式下，实际上是有维护心跳，master会定时去向slave发送ping，发送的间隔是 `repl-ping-slave-period` 默认是10s一次，从节点会向主系欸但发送 `REPLCONF ACK` ，频率是每秒一次 `REPLCONF ACK{offset}` offset是从节点的数据偏移位置。
+
+<div align="center"> <img src="https://github.com/gitXugx/doc-images/blob/master/images/redis/redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E6%B5%81%E7%A8%8B.jpg" /> </div><br>
+
+上面的心跳机制涉及两个配置:
+1. min-slaves-to-write 最小从节点数量以上主节点才会写数据，根据主节点去ping来判断从节点还有多少个。
+2. min-slaves-max-lag 所有从节点lag延迟小于多少主节点才进行写操作, 延迟是通过从节点发送 `REPLCONF ACK` 来判断。
+3. repl-timeout 超时机制
+   
+通过这两个配置来适当提高服务可用性
+在主节点向从节点发送数据的时候还涉及到数据是否打包发送，如果打包发送网络压力会变小，但是数据一致性会变弱，不打包相反
+1. repl-disable-tcp-nodelay 是否打包合并发送
+
+### 复制模式的配置
+
+**数据相关配置**
+
+1. repl-disable-tcp-nodelay 是否打包发送。业务对一致性要求差的设置为true 减小网络带宽，相反
+2. slave-serve-stale-data 从节点正在同步数据是否对外提供服务，对一致性要求高的可以设置为no，从节点设置
+3. 主节点从起命令如果不希望数据丢失或者故障转移，可以用debug reload 来进行重启
+4. min-slaves-max-lag 来保证从节点能积极同步数据。从而保证数据尽可能一致
+5. slave-read-only yes 从节点的配置，只读，不然会造成数据不一致
+**可用性**
+
+1. min-slaves-to-write 当从节点很少的时候，主节点不提供写服务。因为从节点少的情况下，可能因为同步或者全量复制而无法对外提供服务
+2. client-output-buffer-limit slave 256MB 64MB 60，其含义是：如果buffer大于256MB，或者连续60s大于64MB，则主节点会断开与该从节点的连接，主要是rdb发送或者命令发送，如果rdb文件比较大的情况下可以设置大一些，以防一直断开重连同步的问题
+3. repl-backlog-size 设置缓存积压区，只有一个，里面有主节点的offset ，如果设置较小可能会导致，从节点频繁全量同步。
+
+```yml
+
+#当从库同主机失去连接或者复制正在进行，从机库有两种运行方式：1) 如果slave-serve-stale-data设置为yes(默认设置)，从库会继续响应客户端的请求。2) 如果slave-serve-stale-data设置为no，除去INFO和SLAVOF命令之外的任何请求都会返回一个错误”SYNC with master in progress”。
+slave-serve-stale-data yes
+#作为从服务器，默认情况下是只读的（yes），可以修改成NO，用于写（不建议）。
+slave-read-only yes
+#是否使用socket方式复制数据。目前redis复制提供两种方式，disk和socket。如果新的slave连上来或者重连的slave无法部分同步，就会执行全量同步，master会生成rdb文件。有2种方式：disk方式是master创建一个新的进程把rdb文件保存到磁盘，再把磁盘上的rdb文件传递给slave。socket是master创建一个新的进程，直接把rdb文件以socket的方式发给slave。disk方式的时候，当一个rdb保存的过程中，多个slave都能共享这个rdb文件。socket的方式就的一个个slave顺序复制。在磁盘速度缓慢，网速快的情况下推荐用socket方式。
+repl-diskless-sync no
+
+#diskless复制的延迟时间，防止设置为0。一旦复制开始，节点不会再接收新slave的复制请求直到下一个rdb传输。所以最好等待一段时间，等更多的slave连上来。
+repl-diskless-sync-delay 5
+
+#主节点向从节点发送ping的间隔时间，它的设置会影响到repl-timeout
+repl-ping-slave-period 10
+
+#复制连接超时时间。master和slave都有超时时间的设置。master检测到slave上次发送的时间超过repl-timeout，即认为slave离线，清除该slave信息。slave检测到上次和master交互的时间超过repl-timeout，则认为master离线。需要注意的是repl-timeout需要设置一个比repl-ping-slave-period更大的值，不然会经常检测到超时。
+repl-timeout 60
+
+#是否禁止数据打包发送，如果对数据一致性要求比较高，则不打包
+repl-disable-tcp-nodelay no
+#缓存积压区的大小，设置过小会导致频繁做全量复制
+repl-backlog-size 5mb
+
+#master在没有从节点的情况下，多长时间释放缓存积压区
+repl-backlog-ttl 3600
+
+#当master不可用，Sentinel会根据slave的优先级选举一个master。最低的优先级的slave，当选master。而配置成0，永远不会被选举。
+slave-priority 100
+
+#从节点总数大于3主节点才提供写服务
+min-slaves-to-write 3
+#从节点延迟小于10s 才对外提供写服务
+min-slaves-max-lag 10
+# 缓存区设置大小，如果数据比较大建议设置大一些
+client-output-buffer-limit slave 256MB 64MB 60
+```
+
+
+
+### replication模式总结
+复制模式解决了数据同步的问题，数据只保证最终一致性。只能通过上面的配置去调整数据一致性的强度。其次从节点无法做到扩容，主节点单机存储能力有限，无法做到故障转移，写操作无法做到负载，如果需要这些redis提供了 sentinel和culster两种
+
+### sentinel模式 
+
+**snetinel主要做什么**
+
+1. 监控: 负责监控redis服务器是否正常运行
+2. 提醒：如果Redis服务器出现问题，可以通过Api向其他应用程序发送通知。
+3. 故障转移：如果主服务器宕机的情况下，需要从salve服务器中选择一个作为master服务器，让其他从服务器复制新的主服务器，当客户端请求的时候会返回给客户端新的服务器地址
+
+
+
+
+
 
 
 
