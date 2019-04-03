@@ -1,4 +1,4 @@
-# redis 集群
+# redis sentinel模式
 > redis的集群实现官方提供两种方式，一种是redis sentinel 和redis culster
 
 ## redis sentinel模式
@@ -7,7 +7,6 @@
 **两种的作用**
 1. replication: 实现了主从架构和读写分离
 2. sentinel: 实现了监控、故障转移、提醒的功能
-
 
 ### replication模式
 

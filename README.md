@@ -48,7 +48,12 @@
 ### dubbo
 
 ## 中间件
+
 ### redis
+- [为什么使用redis](https://github.com/gitXugx/hotchpotch/blob/master/doc/middleware/redis/%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8redis.md)
+- [redis sentinel模式](https://github.com/gitXugx/hotchpotch/blob/master/doc/middleware/redis/redis%20sentinel%E6%9E%B6%E6%9E%84.md)
+- [redis culster](https://github.com/gitXugx/hotchpotch/blob/master/doc/middleware/redis/redis%20cluster%20framework.md)
+- [redis常见问题](https://github.com/gitXugx/hotchpotch/blob/master/doc/middleware/redis/redis%20%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%92%8C%E8%AE%BE%E8%AE%A1.md)
 ### mq
 
 
