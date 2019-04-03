@@ -1,10 +1,45 @@
 # ConcurrentHashMap源码
+> 该集合是支持高并发和线程安全的集合
 
-## ConcurrentHashMap
+支持高并发和线程安全的前提条件是要进行加锁来保证线程安全，那么高并发与很多有关例如
+1. 算法是否足够优秀
+2. 锁粒度是否足够小
+3. 设计是否足够合理等
+
+而`ConcurrentHashMap`把上面3点展现的淋漓尽致。
+## 设计
+
+`ConcurrentHashMap` 中有很多算法
+
+### 算法方面
+
+1. 二次Hash
+在`ConcurrentHashMap`中，使用了二次hash来解决容量小导致Hash算法不均的情况:
+
+2. Hash碰撞的解决
+为什么不直接用 `h & (length - 1);` 而是使用 `(h = key.hashCode()) ^ (h >>> 16)` ，当数组很小的时候，`hashCode` 只是低16位参与了运算，而高位未参与运算，导致分配的槽不均匀，如果使用 `(h = key.hashCode()) ^ (h >>> 16)` 先与自己的最高位异或，然后再与数组长度取取模，不论数组大小 `hashCode` 的高低位都会参与运算，分配要比之前均匀。
+
+3. 树化设计
+树化设计是因为算法不合理，或者空间过小数据大的情况下，导致拉链法性能低下而去进行的一种优化。因为同一个节点有8个元素的概率相比7个几乎很低，如果发生说明算法不合理或者数据量大。
+
+4. 容量设计
+使用向右位移，取到合适的 `2^n` 次方，因为计算数据存放的时候 `(n - 1) & hash` ，在不为 `2^n` 的时候，最后一位进行与的时候总是 `0`，造成严重的hash碰撞。还有就是为了扩容是的迁移
+5. 扩容设计
+
+6. 锁粒度设计
+7. 无锁设计
+
+
+
+
+
+
+
+
+## ConcurrentHashMap 源码
 
 **字段以及声明**
 ```java
-
 public class ConcurrentHashMap<K,V> extends AbstractMap<K,V> implements ConcurrentMap<K,V>, Serializable {
     private static final long serialVersionUID = 7249069246763182397L;
     //最大容量

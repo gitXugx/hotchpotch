@@ -40,7 +40,7 @@
 
 在`redis replication` 模式下，实际上是有维护心跳，master会定时去向slave发送ping，发送的间隔是 `repl-ping-slave-period` 默认是10s一次，从节点会向主系欸但发送 `REPLCONF ACK` ，频率是每秒一次 `REPLCONF ACK{offset}` offset是从节点的数据偏移位置。
 
-<div align="center"> <img src="https://github.com/gitXugx/doc-images/blob/master/images/redis/redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E6%B5%81%E7%A8%8B.jpg" /> </div><br>
+<div align="center"> <img src="https://github.com/gitXugx/doc-images/blob/master/images/redis/redis%20master%20slave%E5%BF%83%E8%B7%B3.jpg" /> </div><br>
 
 上面的心跳机制涉及两个配置:
 1. min-slaves-to-write 最小从节点数量以上主节点才会写数据，根据主节点去ping来判断从节点还有多少个。
@@ -119,26 +119,29 @@ client-output-buffer-limit slave 256MB 64MB 60
 
 **sentinel的实现原理**
 
+
 **监控**
 
 sentinel在后台主要有3个定时任务来进行监控:
 
-1. 通过redis的 `pub/sub` 每2秒一次来进行sentinel之间的发现和master配置的更新比较
+1. 通过redis的 `pub/sub` 每2秒一次来进行sentinel之间的 `sentinel` 发现和master配置的更新比较
+
+sentinel自动发现
+
+<div align="center"> <img src="https://github.com/gitXugx/doc-images/blob/master/images/redis/redis%20sentinel%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8F%91%E7%8E%B0.jpg" /> </div><br>
+
 2. 通过向master每10秒发送`info`命令来获取主从结构，获取到主从节点的信息，如果主节点被标记为客观下线，则sentinel会缩短至每秒一次
 3. 通过ping主节点或者从节点，监控节点是否下线，如果节点超过了down-after-milliseconds，这个实例会标记为主观下线，如果是从节点会直接从列表中剔除，如果是主节点则进行主观下线判断
 
-
-
-
-
-
 主观下线和客观下线
 
-
+<div align="center"> <img src="https://github.com/gitXugx/doc-images/blob/master/images/redis/redis%20sentinel%20%E5%AE%A2%E8%A7%82%E4%B8%8B%E7%BA%BF%E5%92%8C%E4%B8%BB%E8%A7%82%E4%B8%8B%E7%BA%BF.jpg" /> </div><br>
 
 **故障转移**
 故障转移
 一次故障转移操作由以下步骤组成：
+
+<div align="center"> <img src="https://github.com/gitXugx/doc-images/blob/master/images/redis/redis%20sentinel%20master%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB.jpg" /> </div><br>
 
 选出一个从服务器，并将它升级为主服务器。
 1. 向被选中的从服务器发送 SLAVEOF NO ONE 命令，让它转变为主服务器。
@@ -150,21 +153,20 @@ sentinel在后台主要有3个定时任务来进行监控:
 **master选举**
 Sentinel 使用以下规则来选择新的主服务器：
 
+<div align="center"> <img src="https://github.com/gitXugx/doc-images/blob/master/images/redis/redis%20sentinel%20master%E9%80%89%E4%B8%BE.jpg" /> </div><br>
+
 1. 在失效主服务器属下的从服务器当中， 那些被标记为主观下线、已断线、或者最后一次回复 PING 命令的时间大于五秒钟的从服务器都会被淘汰。
 2. 在失效主服务器属下的从服务器当中， 那些与失效主服务器连接断开的时长超过 down-after 选项指定的时长十倍的从服务器都会被淘汰。
 3. 在经历了以上两轮淘汰之后剩下来的从服务器中， 我们选出复制偏移量（replication offset）最大的那个从服务器作为新的主服务器； 如果复制偏移量不可用， 或者从服务器的复制偏移量相同， 那么带有最小运行 ID 的那个从服务器成为新的主服务器。
 
 
-Sentinel 自动故障迁移的一致性特质
-Sentinel 自动故障迁移使用 Raft 算法来选举领头（leader） Sentinel ， 从而确保在一个给定的纪元（epoch）里， 只有一个领头产生。
+**Sentinel 自动故障迁移的一致性**
 
-这表示在同一个纪元中， 不会有两个 Sentinel 同时被选中为领头， 并且各个 Sentinel 在同一个纪元中只会对一个领头进行投票。
+**把Sentinel 配置看作是一个带有版本号的状态。 每个Sentinel都可能写自己的配置具有版本号，然后发送到队列中，如果发现比自己配置高的版本号则更新自己的配置。**
 
-更高的配置纪元总是优于较低的纪元， 因此每个 Sentinel 都会主动使用更新的纪元来代替自己的配置。
+当出现网络分割时， 一个 Sentinel 可能会包含了较旧的配置， 而当这个 Sentinel 接到其他 Sentinel 发来的版本更新的配置时， Sentinel 就会对自己的配置进行更新。
 
-简单来说， 我们可以将 Sentinel 配置看作是一个带有版本号的状态。 一个状态会以最后写入者胜出（last-write-wins）的方式（也即是，最新的配置总是胜出）传播至所有其他 Sentinel 。
-
-举个例子， 当出现网络分割（network partitions）时， 一个 Sentinel 可能会包含了较旧的配置， 而当这个 Sentinel 接到其他 Sentinel 发来的版本更新的配置时， Sentinel 就会对自己的配置进行更新。
+<div align="center"> <img src="https://github.com/gitXugx/doc-images/blob/master/images/redis/redis%20sentinel%20%E7%BD%91%E7%BB%9C%E5%88%86%E5%8C%BA.jpg" /> </div><br>
 
 如果要在网络分割出现的情况下仍然保持一致性， 那么应该使用 min-slaves-to-write 选项， 让主服务器在连接的从实例少于给定数量时停止执行写操作， 与此同时， 应该在每个运行 Redis 主服务器或从服务器的机器上运行 Redis Sentinel 进程。
 
