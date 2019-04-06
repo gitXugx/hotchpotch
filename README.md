@@ -66,3 +66,7 @@
 - [链表](https://github.com/gitXugx/data-structure-arithmetic/blob/master/doc/datastructure/%E9%93%BE%E8%A1%A8.md)
 - [栈](https://github.com/gitXugx/data-structure-arithmetic/blob/master/doc/datastructure/%E6%A0%88.md)
 - [队列](https://github.com/gitXugx/data-structure-arithmetic/blob/master/doc/datastructure/%E9%98%9F%E5%88%97.md)
+
+## 项目实践
+
+- [项目工程化管理](https://github.com/gitXugx/hotchpotch/blob/master/doc/project-work-flow/%E9%A1%B9%E7%9B%AE%E5%B7%A5%E7%A8%8B%E5%8C%96.md)
