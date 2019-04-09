@@ -84,3 +84,25 @@ A: 如果other cache 中没有该数据 ，则修改状态为M
 B: 如果other cache 数据状态为S和E ，通知other cache 为I ，该状态修改为M
 
 C: 如果other cache 数据为M ，数据先写会主存然后修改为I ，该数据状态修改为M
+
+
+## 在java中使用场景
+
+每一级缓存都有很多缓存行，在加载数据时具有时间局部性和空间局部性，如果在加载数据时把长变数据和不常变数据加载到同一缓存行，就会导致伪缓存的问题，每一次更改导致其他CPU缓存行失效，需要从新读取数据，从而降低性能，如果是基础设施开发，对性能要求高的，需要注意伪缓存的问题。
+
+在java中有专门解决伪缓存的注解
+```java
+    @sun.misc.Contended static final class CounterCell {
+        volatile long value;
+        CounterCell(long x) { value = x; }
+    }
+```
+
+`@sun.misc.Contended` 是会自动为其填充缓存行，使其改Value独占一个缓存行。
+
+
+
+
+
+
+
