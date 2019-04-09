@@ -1,7 +1,6 @@
 # Hotchpotch
 :sweat_drops: java知识的大杂烩
 
-
 -----
 ## jvm基础
 - [基础知识从字节码解读](https://github.com/gitXugx/hotchpotch/blob/master/doc/jvm/java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.md)
@@ -38,7 +37,6 @@
 - [mybatisInsert做了哪些](https://github.com/gitXugx/source-debug/blob/master/doc/mybatis/mybatis%E6%BA%90%E7%A0%813.md)
 - [mybatis的核心源码有哪些](https://github.com/gitXugx/source-debug/blob/master/doc/mybatis/mybatis%E6%BA%90%E7%A0%814.md)
 
-
 ## 微服务
 ### springcloud
 - [Eureka注册中心](https://github.com/gitXugx/hotchpotch/blob/master/doc/microservices/springcloud/Eureka%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83.md)
@@ -56,7 +54,6 @@
 - [redis常见问题](https://github.com/gitXugx/hotchpotch/blob/master/doc/middleware/redis/redis%20%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%92%8C%E8%AE%BE%E8%AE%A1.md)
 ### mq
 
-
 ## 设计
 - [设计模式](https://github.com/gitXugx/design-mode/blob/master/README.md)
 
@@ -70,3 +67,10 @@
 ## 项目实践
 
 - [项目工程化管理](https://github.com/gitXugx/hotchpotch/blob/master/doc/project-work-flow/%E9%A1%B9%E7%9B%AE%E5%B7%A5%E7%A8%8B%E5%8C%96.md)
+- [复杂问题定位](https://github.com/gitXugx/hotchpotch/blob/master/doc/project-work-flow/%E9%A1%B9%E7%9B%AE%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5.md)
+
+## 系统知识
+- [CPU多级缓存和伪缓存问题](https://github.com/gitXugx/hotchpotch/blob/master/doc/basic/CPU%E7%BC%93%E5%AD%98.md)
+
+
+
