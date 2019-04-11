@@ -1,7 +1,5 @@
 # Redis 常见问题
 
-
-
 ## redis key的设计
 type:ID:属性 value ,key和value应该尽量小
 
